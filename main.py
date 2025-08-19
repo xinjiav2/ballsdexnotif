@@ -1,11 +1,14 @@
-
 import discord
 from discord.ext import commands
 import os
+from dotenv import load_dotenv
 
-# Bot configuration
-TRIGGER_PHRASE = "important announcement"  # Change this to your desired phrase
-USERS_TO_PING = [123456789012345678, 987654321098765432]  # Replace with actual user IDs
+load_dotenv()
+
+TRIGGER_PHRASE = os.getenv('TRIGGER_PHRASE', 'important announcement')  
+
+user_ids_str = os.getenv('USERS_TO_PING', '')
+USERS_TO_PING = [int(id.strip()) for id in user_ids_str.split(',') if id.strip().isdigit()]
 
 # Bot setup
 intents = discord.Intents.default()
